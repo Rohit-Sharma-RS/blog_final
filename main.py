@@ -12,10 +12,12 @@ from libravatar import libravatar_url
 from functools import wraps
 from sqlalchemy import ForeignKey
 import os
+from dotenv import load_dotenv
 
 
+load_dotenv()
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
@@ -25,7 +27,7 @@ login_manager.init_app(app)
 
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
